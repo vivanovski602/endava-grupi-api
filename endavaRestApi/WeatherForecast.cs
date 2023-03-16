@@ -1,4 +1,4 @@
-namespace RestApi;
+namespace endavaRestApi;
 
 public class WeatherForecast
 {

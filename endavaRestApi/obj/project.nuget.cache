@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8pld+vuIFocilCGi5yXCK/zPL9sylMpyWvngDgEOMwrDyklIr9/3P6nexTOdoR/9MMe2PRfq0kt5yU3I8TXKZw==",
+  "dgSpecHash": "rnSg9g/CYVsqC8rUqRj/yprhhzqooGDQLMqpSQxlA242yaiPxa3mQ4j/S353WhMfuOxaWtMYx5yZzZqCTU4sNg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\froze\\desktop\\api\\endava-grupi-api\\RestApi\\RestApi.csproj",
+  "projectFilePath": "C:\\Users\\froze\\desktop\\api\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\froze\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.4\\microsoft.aspnetcore.openapi.7.0.4.nupkg.sha512",
     "C:\\Users\\froze\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",

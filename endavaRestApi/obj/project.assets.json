@@ -465,11 +465,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\froze\\desktop\\api\\endava-grupi-api\\RestApi\\RestApi.csproj",
-      "projectName": "RestApi",
-      "projectPath": "C:\\Users\\froze\\desktop\\api\\endava-grupi-api\\RestApi\\RestApi.csproj",
+      "projectUniqueName": "C:\\Users\\froze\\desktop\\api\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj",
+      "projectName": "endavaRestApi",
+      "projectPath": "C:\\Users\\froze\\desktop\\api\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj",
       "packagesPath": "C:\\Users\\froze\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\froze\\desktop\\api\\endava-grupi-api\\RestApi\\obj\\",
+      "outputPath": "C:\\Users\\froze\\desktop\\api\\endava-grupi-api\\endavaRestApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\froze\\AppData\\Roaming\\NuGet\\NuGet.Config",
