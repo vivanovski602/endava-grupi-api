@@ -1,32 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\froze\\desktop\\api\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj": {}
+    "C:\\Users\\Teodora\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\froze\\desktop\\api\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj": {
+    "C:\\Users\\Teodora\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\froze\\desktop\\api\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj",
+        "projectUniqueName": "C:\\Users\\Teodora\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj",
         "projectName": "endavaRestApi",
-        "projectPath": "C:\\Users\\froze\\desktop\\api\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj",
-        "packagesPath": "C:\\Users\\froze\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\froze\\desktop\\api\\endava-grupi-api\\endavaRestApi\\obj\\",
+        "projectPath": "C:\\Users\\Teodora\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj",
+        "packagesPath": "C:\\Users\\Teodora\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Teodora\\endava-grupi-api\\endavaRestApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\froze\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Teodora\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net6.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -37,16 +37,32 @@
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
-            "Microsoft.AspNetCore.OpenApi": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[7.0.4, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.4.0, )"
+              "version": "[6.5.0, )"
             }
           },
           "imports": [
@@ -55,8 +71,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -68,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

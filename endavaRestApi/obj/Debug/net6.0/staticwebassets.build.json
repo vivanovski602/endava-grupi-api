@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "frYJKfGHqzOuxg8u72chLvza9r/ODqJvsqUBoSDCLb0=",
+  "Source": "endavaRestApi",
+  "BasePath": "_content/endavaRestApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
