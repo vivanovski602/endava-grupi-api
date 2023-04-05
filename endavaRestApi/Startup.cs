@@ -1,4 +1,5 @@
 ﻿using endavaRestApi.Data;
+using endavaRestApi.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-//using Microsoft.TodoApi.Nodels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,14 +31,23 @@ namespace endavaRestApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ShopContext>(o => o.UseSqlServer(connectionString));
+            services.AddScoped<IShopRepository, ShopRepository>();
             services.AddControllers();
+            
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "endavaRestApi", Version = "v1" });
             }
         );
+
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<ShopContext>(o => o.UseSqlServer(connectionString));
+           
+
+
+
+
 
 
         }
