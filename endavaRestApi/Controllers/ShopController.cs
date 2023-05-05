@@ -23,7 +23,7 @@ namespace endavaRestApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            return await _shopRepository.Get();
+            return await _shopRepository .Get();
         }
 
         [HttpPost("filter")]
@@ -31,7 +31,7 @@ namespace endavaRestApi.Controllers
         public async Task<ActionResult<Product>> Filter([FromBody] ProductFilter filter)
         {
             var products = await _shopRepository.Get();
-            var results = products.Where(p =>
+            var results = products.Where(p =>       //da se iskomentira
                     (filter.ProductCategory == null || p.ProductCategory == filter.ProductCategory) &&
                     (filter.ProductBrand == null || p.ProductBrand == filter.ProductBrand) &&
                     (filter.PriceMin == null || p.Price >= filter.PriceMin) &&
@@ -40,7 +40,7 @@ namespace endavaRestApi.Controllers
                     (filter.WeightMin == null || p.Weight >= filter.WeightMin) &&
                     (filter.WeightMax == null || p.Weight <= filter.WeightMax)
                 );
-
+         
             return Ok(results);
         }
 
