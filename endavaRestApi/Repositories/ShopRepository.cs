@@ -31,7 +31,7 @@ namespace endavaRestApi.Repositories
             return await _context.Users.FindAsync(id);
 
         }
-        /*public async Task<IEnumerable<Product>> Filter(ProductFilter filter)
+        public async Task<IEnumerable<Product>> Filter(ProductFilter filter)
         {
 
             var _products = await _context.Products.ToListAsync();
@@ -48,7 +48,7 @@ namespace endavaRestApi.Repositories
 
                 return results;
             }
-        */
+        
         }
 
         

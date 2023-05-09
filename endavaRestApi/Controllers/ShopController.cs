@@ -27,6 +27,13 @@ namespace endavaRestApi.Controllers
         }
 
         [HttpPost("filter")]
+        public async Task<ActionResult<Product>> Filter([FromBody] ProductFilter filter)
+        {
+            var results = await _shopRepository.Filter(filter);
+            return Ok(results);
+        }
+
+        /*[HttpPost("filter")]
    
         public async Task<ActionResult<Product>> Filter([FromBody] ProductFilter filter)
         {
@@ -43,6 +50,7 @@ namespace endavaRestApi.Controllers
          
             return Ok(results);
         }
+        */
 
         [HttpPost]
         public async Task<ActionResult<User>> CreateUser(User user)

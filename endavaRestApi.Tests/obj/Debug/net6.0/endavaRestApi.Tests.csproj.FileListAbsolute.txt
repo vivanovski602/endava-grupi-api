@@ -175,3 +175,5 @@ C:\Users\Teodora\endava-grupi-api\endavaRestApi.Tests\obj\Debug\net6.0\endavaRes
 C:\Users\Teodora\endava-grupi-api\endavaRestApi.Tests\obj\Debug\net6.0\ref\endavaRestApi.Tests.dll
 C:\Users\Teodora\endava-grupi-api\endavaRestApi.Tests\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\Teodora\endava-grupi-api\endavaRestApi.Tests\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\Teodora\endava-grupi-api\endavaRestApi.Tests\bin\Debug\net6.0\web.config
+C:\Users\Teodora\endava-grupi-api\endavaRestApi.Tests\bin\Debug\net6.0\appsettings.json
