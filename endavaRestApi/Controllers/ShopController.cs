@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using endavaRestApi.Data;
 using endavaRestApi.Repositories;
 using log4net;
+using log4net.Config;
 
 namespace endavaRestApi.Controllers
 {
@@ -16,19 +17,17 @@ namespace endavaRestApi.Controllers
     public class ShopController : ControllerBase
 
     {
-        private readonly ILog _logger = LogManager.GetLogger(typeof(ShopController));
         private readonly IShopRepository _shopRepository;
         public ShopController(IShopRepository shopRepository)
         {
             _shopRepository = shopRepository;
-            log4net.Config.XmlConfigurator.Configure();
+            XmlConfigurator.Configure(new FileInfo("log4net.config"));
         }
 
         [HttpGet]
         public async Task<IEnumerable<Product>> GetProducts()
         {
            
-                _logger.Info("Getting products...");
                 return await _shopRepository.Get();
             
          }
@@ -46,8 +45,6 @@ namespace endavaRestApi.Controllers
         public async Task<ActionResult<User>> CreateUser(User user)
         {
             var createdUser = await _shopRepository.AddUser(user);
-            _logger.Info($"User created: {createdUser.Id}");
-
             return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, createdUser);
 
 
@@ -56,8 +53,7 @@ namespace endavaRestApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            _logger.Info($"Getting user with id {id}");
-            _logger.Info($"User with id {id} retrieved successfully");
+           
             return await _shopRepository.Get(id);
         }
 

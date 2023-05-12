@@ -49,19 +49,6 @@ namespace endavaRestApi
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ShopContext>(o => o.UseSqlServer(connectionString));
-
-            // Configure log4net
-            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-
-            var fileAppender = new FileAppender
-            {
-                Name = "FileAppender",
-                Layout = new PatternLayout("%date [%thread] %-5level %logger - %message%newline"),
-                AppendToFile = true,
-                File = "mylog.txt"
-            };
-
-            BasicConfigurator.Configure(logRepository, fileAppender);
         }
 
 
@@ -86,7 +73,6 @@ namespace endavaRestApi
             app.UseStaticFiles();
 
 
-            //XmlConfigurator.Configure();
 
 
         }
