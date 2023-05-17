@@ -36,6 +36,15 @@ namespace endavaRestApi.Repositories
 
         }
 
+        public async Task<IEnumerable<Product>> GetByCategory(string category)
+        {
+            var allProducts = await _context.Products.ToListAsync();
+
+            var filteredProducts = allProducts.Where(p => p.ProductCategory == category);
+
+            return filteredProducts;
+        }
+
         public async Task<IEnumerable<Product>> Filter(ProductFilter filter)
         {
             log.Info("Filtering products.");                    //log message of info level

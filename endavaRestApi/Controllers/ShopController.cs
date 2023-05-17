@@ -57,7 +57,12 @@ namespace endavaRestApi.Controllers
             return await _shopRepository.Get(id);
         }
 
-
+        [HttpGet("category/{category}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategory(string category)
+        {
+            var products = await _shopRepository.GetByCategory(category);
+            return Ok(products);
+        }
     }
 
 
