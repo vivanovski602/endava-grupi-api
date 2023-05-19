@@ -1,10 +1,12 @@
 ﻿using endavaRestApi.Data;
 using log4net;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace endavaRestApi.Repositories
 {
-    public class ShopRepository:IShopRepository
+    public class ShopRepository : IShopRepository
     {
         private readonly ShopContext _context;
         private static readonly ILog log = LogManager.GetLogger(typeof(ShopRepository));    //log instance
@@ -73,7 +75,30 @@ namespace endavaRestApi.Repositories
             return results;
         }
 
+        public async Task<User> GetUserByEmail(string email)
+        {
+            log.Info($"Getting user with email {email}"); //log message of info level
+
+            return await _context.Users.FirstOrDefaultAsync(user => user.Email == email);
+        }
+
+        public async Task<User> GetUserByName(string name)
+        {
+            log.Info($"Getting user with name {name}"); //log message of info level
+
+            return await _context.Users.FirstOrDefaultAsync(user => user.Name == name);
+        }
+
+        public async Task<User> UpdateUser(User user)
+        {
+            log.Info($"Updating user with id {user.Id}"); //log message of info level
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
+            log.Info($"User updated: {user.Name}"); //log message of info level
+            return user;
+        }
 
     }
-    
+}
 
