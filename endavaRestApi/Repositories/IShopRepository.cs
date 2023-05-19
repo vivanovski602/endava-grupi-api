@@ -11,3 +11,4 @@ namespace endavaRestApi.Repositories
        Task<IEnumerable<Product>> Filter(ProductFilter filter);
     }
 }
+
