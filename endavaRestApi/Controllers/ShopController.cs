@@ -18,13 +18,15 @@ namespace endavaRestApi.Controllers
 
     {
         private readonly IShopRepository _shopRepository;
-        public ShopController(IShopRepository shopRepository)
+        private readonly IOrderRepository _orderRepository;
+        public ShopController(IShopRepository shopRepository, IOrderRepository orderRepository)
         {
             _shopRepository = shopRepository;
             XmlConfigurator.Configure(new FileInfo("log4net.config"));
+            _orderRepository = orderRepository;
         }
 
-        [HttpGet]
+        [HttpGet("get_all_products")]
         public async Task<IEnumerable<Product>> GetProducts()
         {
            
@@ -41,21 +43,42 @@ namespace endavaRestApi.Controllers
 
 
 
-        [HttpPost]
+        [HttpPost("user_registration")]
         public async Task<ActionResult<User>> CreateUser(User user)
         {
             var createdUser = await _shopRepository.AddUser(user);
-            return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, createdUser);
+            return CreatedAtAction(nameof(GetUser), new { id = createdUser.UserId }, createdUser);
 
 
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("get_user_by{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
            
             return await _shopRepository.Get(id);
         }
+
+        // Action method to create an order
+        [HttpPost("orders")]
+        public async Task<IActionResult> CreateOrder(int userId, Dictionary<int, int> productQuantities)
+        {
+            if (!await _orderRepository.IsUserActive(userId))
+            {
+                return BadRequest("User is inactive or does not exist.");
+            }
+
+            if (!await _orderRepository.AreProductsAvailable(productQuantities))
+            {
+                return BadRequest("One or more products are not available or have insufficient quantity.");
+            }
+
+            var order = await _orderRepository.CreateOrder(userId, productQuantities);
+            var payment = await _orderRepository.CreatePayment(order.OrderId, order.TotalAmount);
+
+            return Ok(new { Order = order, Payment = payment });
+        }
+
 
 
     }

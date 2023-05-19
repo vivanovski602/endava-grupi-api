@@ -38,6 +38,8 @@ namespace endavaRestApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IShopRepository, ShopRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+
             services.AddControllers();
 
 
