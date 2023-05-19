@@ -24,7 +24,7 @@ namespace endavaRestApi.Controllers
             XmlConfigurator.Configure(new FileInfo("log4net.config"));
         }
 
-        [HttpGet]
+        [HttpGet("products/Get-All")]
         public async Task<IEnumerable<Product>> GetProducts()
         {
            
@@ -32,7 +32,7 @@ namespace endavaRestApi.Controllers
             
          }
 
-        [HttpPost("filter")]
+        [HttpPost("products/filter")]
         public async Task<ActionResult<Product>> Filter([FromBody] ProductFilter filter)
         {
             var results = await _shopRepository.Filter(filter);
@@ -41,7 +41,7 @@ namespace endavaRestApi.Controllers
 
 
 
-        [HttpPost]
+        [HttpPost("user/Add")]
         public async Task<ActionResult<User>> CreateUser(User user)
         {
             var createdUser = await _shopRepository.AddUser(user);
@@ -50,15 +50,43 @@ namespace endavaRestApi.Controllers
 
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("user/{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
            
             return await _shopRepository.Get(id);
         }
+     
+        [HttpPost("user/Reset-Password")]
+        public async Task<ActionResult> ResetPassword(ResetPasswordRequest resetRequest)
+        {
+            //Check if username exists
+            var user = await _shopRepository.GetUserByName(resetRequest.Name);
+            if (user == null)
+            {
+                return NotFound("Invalid username or e-mail!");
+            }
+            //Check if Email exists
+            user = await _shopRepository.GetUserByEmail(resetRequest.Email);
+            if (user == null)
+            {
+                return NotFound("Invalid username or e-mail!");
+            }
+            //Check if the old password is correct
+            if (user.Password != resetRequest.Password)
+            {
+                return BadRequest("Old password is incorrect!");
+            }
+            //Check if the new password is the same as the old password
+            if (user.Password == resetRequest.NewPassword)
+            {
+                return BadRequest("This password was previously used, add a new password!");
+            }
+            //Reset password
+            user.Password = resetRequest.NewPassword;
+            await _shopRepository.UpdateUser(user);
+            return Ok("Password reset successfully!");
 
-
+        }
     }
-
-
 }
