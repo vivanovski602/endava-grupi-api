@@ -39,7 +39,28 @@ namespace endavaRestApi.Controllers
             return Ok(results);
         }
 
+<<<<<<< Updated upstream
 
+=======
+        /*[HttpPost("filter")]
+   
+        public async Task<ActionResult<Product>> Filter([FromBody] ProductFilter filter)
+        {
+            var products = await _shopRepository.Get();
+            var results = products.Where(p =>       //da se iskomentira
+                    (filter.ProductCategory == null || p.ProductCategory == filter.ProductCategory) &&
+                    (filter.ProductBrand == null || p.ProductBrand == filter.ProductBrand) &&
+                    (filter.PriceMin == null || p.Price >= filter.PriceMin) &&
+                    (filter.PriceMax == null || p.Price <= filter.PriceMax) &&
+                    (filter.ProductSize == null || p.ProductSize == filter.ProductSize) &&
+                    (filter.WeightMin == null || p.Weight >= filter.WeightMin) &&
+                    (filter.WeightMax == null || p.Weight <= filter.WeightMax)
+                );
+         
+            return Ok(results);
+        }
+        */
+>>>>>>> Stashed changes
 
         [HttpPost]
         public async Task<ActionResult<User>> CreateUser(User user)
@@ -57,7 +78,7 @@ namespace endavaRestApi.Controllers
             return await _shopRepository.Get(id);
         }
 
-        [HttpGet("category/{category}")]
+        [HttpGet("product/{category}")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategory(string category)
         {
             var products = await _shopRepository.GetByCategory(category);
