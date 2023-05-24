@@ -37,6 +37,7 @@ namespace endavaRestApi.Repositories
             return await _context.Users.FindAsync(id);
 
         }
+        /*
         public async Task<IEnumerable<Product>> Filter(ProductFilter filter)
         {
 
@@ -52,11 +53,11 @@ namespace endavaRestApi.Repositories
                         (filter.WeightMax == null || p.Weight <= filter.WeightMax)
                     );
 
-                return results;
-            }
-        
-        }
+            return results;
 
+
+        } */
+        
         public async Task<IEnumerable<Product>> Filter(ProductFilter filter)
         {
             log.Info("Filtering products.");                    //log message of info level
@@ -97,6 +98,14 @@ namespace endavaRestApi.Repositories
 
             log.Info($"User updated: {user.Name}"); //log message of info level
             return user;
+        }
+        public async Task<IEnumerable<Product>> GetByCategory(string category)
+        {
+            log.Info($"Filtering products by category"); //log message of info level
+            var allProducts = await _context.Products.ToListAsync();
+            var filteredProducts = allProducts.Where(p => p.ProductCategory == category);
+
+            return filteredProducts;
         }
 
     }
