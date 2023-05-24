@@ -24,15 +24,13 @@ namespace endavaRestApi.Controllers
             XmlConfigurator.Configure(new FileInfo("log4net.config"));
         }
 
-        [HttpGet]
+        [HttpGet("products/Get-All")]
         public async Task<IEnumerable<Product>> GetProducts()
         {
-           
-                return await _shopRepository.Get();
-            
-         }
+            return await _shopRepository.Get();
+        }
 
-        [HttpPost("filter")]
+        [HttpPost("products/filter")]
         public async Task<ActionResult<Product>> Filter([FromBody] ProductFilter filter)
         {
             var results = await _shopRepository.Filter(filter);
@@ -61,30 +59,6 @@ namespace endavaRestApi.Controllers
 
 
         [HttpPost("user/Add")]
-<<<<<<< Updated upstream
-
-=======
-        /*[HttpPost("filter")]
-   
-        public async Task<ActionResult<Product>> Filter([FromBody] ProductFilter filter)
-        {
-            var products = await _shopRepository.Get();
-            var results = products.Where(p =>       //da se iskomentira
-                    (filter.ProductCategory == null || p.ProductCategory == filter.ProductCategory) &&
-                    (filter.ProductBrand == null || p.ProductBrand == filter.ProductBrand) &&
-                    (filter.PriceMin == null || p.Price >= filter.PriceMin) &&
-                    (filter.PriceMax == null || p.Price <= filter.PriceMax) &&
-                    (filter.ProductSize == null || p.ProductSize == filter.ProductSize) &&
-                    (filter.WeightMin == null || p.Weight >= filter.WeightMin) &&
-                    (filter.WeightMax == null || p.Weight <= filter.WeightMax)
-                );
-         
-            return Ok(results);
-        }
-        */
->>>>>>> Stashed changes
-
-        [HttpPost]
         public async Task<ActionResult<User>> CreateUser(User user)
         {
             var createdUser = await _shopRepository.AddUser(user);
@@ -96,10 +70,10 @@ namespace endavaRestApi.Controllers
         [HttpGet("user/{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-           
+
             return await _shopRepository.Get(id);
         }
-     
+
         [HttpPost("user/Reset-Password")]
         public async Task<ActionResult> ResetPassword(ResetPasswordRequest resetRequest)
         {
@@ -129,17 +103,18 @@ namespace endavaRestApi.Controllers
             user.Password = resetRequest.NewPassword;
             await _shopRepository.UpdateUser(user);
             return Ok("Password reset successfully!");
+         }
+            [HttpGet("product/{category}")]
+            public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategory(string category)
+            {
+                var products = await _shopRepository.GetByCategory(category);
+                return Ok(products);
 
+            }
         }
-    }
-
-        [HttpGet("product/{category}")]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategory(string category)
-        {
-            var products = await _shopRepository.GetByCategory(category);
-            return Ok(products);
-        }
-    }
+    } 
 
 
-}
+
+
+
