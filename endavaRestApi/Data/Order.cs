@@ -15,7 +15,7 @@ namespace endavaRestApi.Data
         public int UserId { get; set; }
 
         // Calculated property for the total amount
-        public decimal TotalAmount => OrderDetails.Sum(od => od.Quantity * od.Product.Price);
+        public int TotalAmount => OrderDetails.Sum(od => od.Quantity * od.Product.Price);
     }
 }
 

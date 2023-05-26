@@ -14,7 +14,8 @@ namespace endavaRestApi.Data
         [MinLength(8)]
         public string Password { get; set; }
         public bool IsActive { get; internal set; }
-        public ICollection<Order> Orders { get; set; } = null!;
+        
+        //public ICollection<Order> Orders { get; set; } = null!;
 
     }
 

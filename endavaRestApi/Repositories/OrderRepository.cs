@@ -3,7 +3,7 @@ using log4net;
 
 namespace endavaRestApi.Repositories
 {
-    public class OrderRepository:IOrderRepository
+    public class OrderRepository: IOrderRepository
     {
         private readonly ShopContext _context;
         private static readonly ILog log = LogManager.GetLogger(typeof(ShopRepository));    //log instance
@@ -30,6 +30,17 @@ namespace endavaRestApi.Repositories
 
         public async Task<Order> CreateOrder(int userId, Dictionary<int, int> productQuantities)
         {
+
+            if (!await /* _orderRepository. */IsUserActive(userId))           //vo Repository
+            {
+                return BadRequest("User is inactive or does not exist.");
+            }
+
+            if (!await /*_orderRepository. */ AreProductsAvailable(productQuantities))
+            {
+                return BadRequest("One or more products are not available or have insufficient quantity.");
+            }
+            //ovde validaciite so if od ShopController
             var order = new Order
             {
                 // Set order properties
@@ -38,6 +49,7 @@ namespace endavaRestApi.Repositories
             };
 
             _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
 
             foreach (var kvp in productQuantities)
             {
@@ -56,7 +68,7 @@ namespace endavaRestApi.Repositories
             return order;
         }
 
-        public async Task<Payment> CreatePayment(int orderId, decimal amount)
+        public async Task<Payment> CreatePayment(int orderId, int amount)
         {
             var payment = new Payment
             {

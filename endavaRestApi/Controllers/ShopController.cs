@@ -63,7 +63,7 @@ namespace endavaRestApi.Controllers
         [HttpPost("orders")]
         public async Task<IActionResult> CreateOrder(int userId, Dictionary<int, int> productQuantities)
         {
-            if (!await _orderRepository.IsUserActive(userId))
+            if (!await _orderRepository.IsUserActive(userId))           //vo Repository
             {
                 return BadRequest("User is inactive or does not exist.");
             }
