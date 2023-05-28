@@ -57,7 +57,7 @@ namespace endavaRestApi.Controllers
         */
 
 
-
+        /*
         [HttpPost("user/Add")]
         public async Task<ActionResult<User>> CreateUser(User user)
         {
@@ -104,6 +104,7 @@ namespace endavaRestApi.Controllers
             await _shopRepository.UpdateUser(user);
             return Ok("Password reset successfully!");
          }
+        */
             [HttpGet("product/{category}")]
             public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategory(string category)
             {

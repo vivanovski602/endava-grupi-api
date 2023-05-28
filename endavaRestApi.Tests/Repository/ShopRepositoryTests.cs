@@ -40,7 +40,7 @@ namespace endavaRestApi.Tests.Repository
 
         //xUnit Test for Get()  --- GetAllItemsAPI
         [Fact]
-        public async Task ShopRepository_Get_ReturnsProduct()
+        public async Task UserRepository_Get_ReturnsProduct()
         {
             //Arrange
             var dbContext = await GetDatabaseContext();
@@ -58,15 +58,15 @@ namespace endavaRestApi.Tests.Repository
 
         //xUnit Test for AddUser(user)  --- UserRegistrationAPI
         [Fact]
-        public async Task ShopRepository_AddUser_ReturnsUser()
+        public async Task UserRepository_AddUser_ReturnsUser()
         {
             //Arrange
             var dbContext = await GetDatabaseContext();
-            var shopRepository = new ShopRepository(dbContext);
+            var userRepository = new UserRepository(dbContext);
             var user = new User { Id = 16, Name = "Teodora", Email = "teodora@example.com", Password = "teodorasiljanoska" };
 
             //Act
-            var result = await shopRepository.AddUser(user);
+            var result = await userRepository.AddUser(user);
 
             //Assert
             result.Should().BeOfType<User>();
@@ -75,17 +75,17 @@ namespace endavaRestApi.Tests.Repository
 
         //xUnit Test for Get(id)   ---- GetUserByIdAPI which API in order to test if the user from the UserRegistrationAPI is created
         [Fact]
-        public async Task ShopRepository_Get_ReturnsUser()
+        public async Task UserRepository_Get_ReturnsUser()
         {
             //Arrange
             var dbContext = await GetDatabaseContext();
-            var shopRepository = new ShopRepository(dbContext);
+            var userRepository = new UserRepository(dbContext);
             var id = 1;
             dbContext.Users.Add(new User { Id = id, Name = "John",Email="john@example.com", Password="johnjohn" });
             dbContext.SaveChanges();
 
             //Act
-            var result = await shopRepository.Get(id);
+            var result = await userRepository.Get(id);
 
             //Assert
            if (result == null) { result.Should().BeNull(); }   //in case there isn't a user with that id - KOREKCIJA
