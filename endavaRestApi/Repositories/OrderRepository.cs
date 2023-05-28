@@ -1,5 +1,6 @@
 ﻿using endavaRestApi.Data;
 using log4net;
+using Microsoft.AspNetCore.Mvc;
 
 namespace endavaRestApi.Repositories
 {
@@ -28,15 +29,15 @@ namespace endavaRestApi.Repositories
             return true;
         }
 
-        public async Task<Order> CreateOrder(int userId, Dictionary<int, int> productQuantities)
+        /* public async Task<Order> CreateOrder(int userId, Dictionary<int, int> productQuantities)
         {
 
-            if (!await /* _orderRepository. */IsUserActive(userId))           //vo Repository
+            if (!await  _orderRepository.IsUserActive(userId))           //vo Repository
             {
                 return BadRequest("User is inactive or does not exist.");
             }
 
-            if (!await /*_orderRepository. */ AreProductsAvailable(productQuantities))
+            if (!await _orderRepository.AreProductsAvailable(productQuantities))
             {
                 return BadRequest("One or more products are not available or have insufficient quantity.");
             }
@@ -66,14 +67,56 @@ namespace endavaRestApi.Repositories
             await _context.SaveChangesAsync();
 
             return order;
-        }
+        } */
 
-        public async Task<Payment> CreatePayment(int orderId, int amount)
+        public async Task<(Order, IActionResult)> CreateOrder(int userId, Dictionary<int, int> productQuantities)
+        {
+            if (!await IsUserActive(userId))
+            {
+                return (null, new BadRequestObjectResult("User is inactive or does not exist."));
+            }
+
+            if (!await AreProductsAvailable(productQuantities))
+            {
+                return (null, new BadRequestObjectResult("One or more products are not available or have insufficient quantity."));
+            }
+
+            var order = new Order
+            {   
+                // Set order properties
+                UserId = userId,
+                OrderPlaced = DateTime.Now,
+            };
+
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+
+
+            foreach (var kvp in productQuantities)
+            {
+                var orderDetail = new OrderDetail
+                {
+                    OrderId = order.OrderId,
+                    ProductId = kvp.Key,
+                    Quantity = kvp.Value,
+                };
+
+                _context.OrderDetails.Add(orderDetail);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return (order, null);
+        }
+    
+
+
+    public async Task<Payment> CreatePayment(int orderId)
         {
             var payment = new Payment
             {
                 OrderId = orderId,
-                Amount = amount,
+                //Amount = amount,
                 Status = "Pending",
                 // Additional payment properties as needed
             };

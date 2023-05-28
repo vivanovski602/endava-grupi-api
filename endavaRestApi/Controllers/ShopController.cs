@@ -59,7 +59,7 @@ namespace endavaRestApi.Controllers
             return await _shopRepository.Get(id);
         }
 
-        // Action method to create an order
+        /* // Action method to create an order
         [HttpPost("orders")]
         public async Task<IActionResult> CreateOrder(int userId, Dictionary<int, int> productQuantities)
         {
@@ -77,7 +77,37 @@ namespace endavaRestApi.Controllers
             var payment = await _orderRepository.CreatePayment(order.OrderId, order.TotalAmount);
 
             return Ok(new { Order = order, Payment = payment });
+        } */
+
+        /*[HttpPost("orders")]
+        public async Task<IActionResult> CreateOrder(int userId, Dictionary<int, int> productQuantities)
+        {
+            var (order, errorResult) = await _orderRepository.CreateOrder(userId, productQuantities);
+            if (errorResult != null)
+            {
+                return errorResult;
+            }
+
+            var payment = await _orderRepository.CreatePayment(order.OrderId, order.TotalAmount);
+
+            return Ok(new { Order = order, Payment = payment });
+        }*/
+
+        [HttpPost("orders")]
+        public async Task<IActionResult> CreateOrder(int userId, Dictionary<int, int> productQuantities)
+        {
+            var (order, errorResult) = await _orderRepository.CreateOrder(userId, productQuantities);
+            if (errorResult != null)
+            {
+                return errorResult;
+            }
+
+            var payment = await _orderRepository.CreatePayment(order.OrderId);
+
+            return Ok(new { Order = order, Payment = payment });
         }
+
+
 
 
 
