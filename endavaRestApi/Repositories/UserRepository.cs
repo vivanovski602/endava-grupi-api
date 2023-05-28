@@ -1,5 +1,6 @@
 ﻿using endavaRestApi.Data;
 using log4net;
+using Microsoft.EntityFrameworkCore;
 
 namespace endavaRestApi.Repositories
 {
@@ -27,5 +28,37 @@ namespace endavaRestApi.Repositories
             return await _context.Users.FindAsync(id);
 
         }
+        public async Task<User> GetUserByEmail(string email)
+        {
+            log.Info($"Getting user with email {email}"); //log message of info level
+
+            return await _context.Users.FirstOrDefaultAsync(user => user.Email == email);
+        }
+
+        public async Task<User> GetUserByName(string name)
+        {
+            log.Info($"Getting user with name {name}"); //log message of info level
+
+            return await _context.Users.FirstOrDefaultAsync(user => user.Name == name);
+        }
+
+        public async Task<User> UpdateUser(User user)
+        {
+            log.Info($"Updating user with id {user.Id}"); //log message of info level
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
+            log.Info($"User updated: {user.Name}"); //log message of info level
+            return user;
+        }
+        public async Task<IEnumerable<Product>> GetByCategory(string category)
+        {
+            log.Info($"Filtering products by category"); //log message of info level
+            var allProducts = await _context.Products.ToListAsync();
+            var filteredProducts = allProducts.Where(p => p.ProductCategory == category);
+
+            return filteredProducts;
+        }
+
     }
 }
