@@ -19,7 +19,7 @@ namespace endavaRestApi.Repositories
 
         }
 
-        public async Task<User> AddUser(User user)
+       /* public async Task<User> AddUser(User user)
         {
             log.Info($"Adding user {user.Name}.");      //log message of info level
             _context.Users.Add(user);
@@ -34,7 +34,7 @@ namespace endavaRestApi.Repositories
             log.Info($"Getting user with id {id}");         //log message of info level
             return await _context.Users.FindAsync(id);
 
-        }
+        } */
 
         public async Task<IEnumerable<Product>> Filter(ProductFilter filter)
         {
