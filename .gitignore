@@ -6,3 +6,10 @@
 /endavaRestApi/obj/Debug/net7.0
 /UnitTest/obj/Release/net6.0
 /endavaRestApi/obj/Release/net6.0
+/endavaRestApi.Tests/obj/Debug/net6.0/_IsIncrementalBuild
+/endavaRestApi.Tests/bin/Debug/net6.0/logs
+/endavaRestApi.Tests/bin/Debug/net6.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+/endavaRestApi.Tests/bin/Debug/net6.0/CsvHelper.dll
+/endavaRestApi.Tests/bin/Debug/net6.0/log4net.config
+/endavaRestApi.Tests/bin/Debug/net6.0/log4net.dll
+/endavaRestApi.Tests/bin/Debug/net6.0
