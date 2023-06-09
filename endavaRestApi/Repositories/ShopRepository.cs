@@ -21,7 +21,7 @@ namespace endavaRestApi.Repositories
 
         }
 
-        public async Task<User> AddUser(User user)
+        /* public async Task<User> AddUser(User user)
         {
             log.Info($"Adding user {user.Name}.");      //log message of info level
             _context.Users.Add(user);
@@ -36,7 +36,7 @@ namespace endavaRestApi.Repositories
             log.Info($"Getting user with id {id}");         //log message of info level
             return await _context.Users.FindAsync(id);
 
-        }
+        } */
         /*
         public async Task<IEnumerable<Product>> Filter(ProductFilter filter)
         {
@@ -76,7 +76,7 @@ namespace endavaRestApi.Repositories
             return results;
         }
 
-        public async Task<User> GetUserByEmail(string email)
+       /* public async Task<User> GetUserByEmail(string email)
         {
             log.Info($"Getting user with email {email}"); //log message of info level
 
@@ -98,7 +98,7 @@ namespace endavaRestApi.Repositories
 
             log.Info($"User updated: {user.Name}"); //log message of info level
             return user;
-        }
+        } */
         public async Task<IEnumerable<Product>> GetByCategory(string category)
         {
             log.Info($"Filtering products by category"); //log message of info level
