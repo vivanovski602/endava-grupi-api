@@ -10,10 +10,10 @@ namespace endavaRestApi.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
+          /*  migrationBuilder.RenameColumn(
                 name: "Id",
                 table: "Users",
-                newName: "UserId");
+                newName: "UserId"); */
 
             migrationBuilder.CreateTable(
                 name: "Payments",
@@ -22,7 +22,7 @@ namespace endavaRestApi.Migrations
                     PaymentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OrderId = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    /*Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false), */
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>

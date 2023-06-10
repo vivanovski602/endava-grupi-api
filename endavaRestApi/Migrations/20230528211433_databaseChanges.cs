@@ -18,20 +18,27 @@ namespace endavaRestApi.Migrations
                 name: "FK_Orders_Users_UserId",
                 table: "Orders"); */
 
-            migrationBuilder.DropTable(
-                name: "Customers");
+           /* migrationBuilder.DropTable(
+                name: "Customers"); */
 
-           /* migrationBuilder.DropIndex(
-                name: "IX_Orders_CustomerId",
-                table: "Orders"); */
+            /* migrationBuilder.DropIndex(
+                 name: "IX_Orders_CustomerId",
+                 table: "Orders"); */
 
-           /* migrationBuilder.DropIndex(
-                name: "IX_Orders_UserId",
-                table: "Orders"); */
-
-            /*migrationBuilder.DropColumn(
+            /* migrationBuilder.DropIndex(
+                 name: "IX_Orders_UserId",
+                 table: "Orders"); */
+         
+            
+            /*migrationBuilder.AddColumn<bool>(
+                 name: "isActive",
+                 table: "Users",
+                 type: "bit",
+                 nullable: false,
+                 defaultValue: "");
+            migrationBuilder.DropColumn(
                 name: "CustomerId",
-                table: "Orders"); */
+                table: "Orders");  */
              
             migrationBuilder.CreateIndex(
                 name: "IX_Payments_OrderId",
@@ -45,6 +52,17 @@ namespace endavaRestApi.Migrations
                 principalTable: "Orders",
                 principalColumn: "OrderId",
                 onDelete: ReferentialAction.Cascade);
+          /*  migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserId",
+                table: "Orders",
+                column: "UserId");
+            migrationBuilder.AddForeignKey(
+                name: "FK_Orders_Users_UserId",
+                table: "Orders",
+                column: "UserId",
+                principalTable: "Users",
+                principalColumn: "UserId",
+                onDelete: ReferentialAction.Cascade); */
         }
 
         /// <inheritdoc />
