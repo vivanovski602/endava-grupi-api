@@ -13,5 +13,6 @@ namespace endavaRestApi.Repositories
        //Task<User> GetUserByName(string name);
        //Task<User> UpdateUser(User user);
        Task<IEnumerable<Product>> GetByCategory(string category);
+       Task ImportCsv(IFormFile file);
     }
 }

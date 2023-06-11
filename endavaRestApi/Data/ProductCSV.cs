@@ -1,13 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
 namespace endavaRestApi.Data
 {
-    public class Product
+    public class ProductCSV
     {
-        [Key]
-        public int ProductId { get; set; }
         [Required]
         public string ProductName { get; set; }
         public string ProductCategory { get; set; }
@@ -21,12 +18,8 @@ namespace endavaRestApi.Data
         public decimal Weight { get; set; }
         [Required]
         public int ProductQuantity { get; set; }
-
         public string Color { get; set; }
-
-        public decimal TotalPrice { get; set; }
         [Required]
         public Guid ProductGuidId { get; set; }
-
     }
 }
