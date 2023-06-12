@@ -63,7 +63,7 @@ namespace endavaRestApi.Tests.Repository
             //Arrange
             var dbContext = await GetDatabaseContext();
             var userRepository = new UserRepository(dbContext);
-            var user = new User { Id = 16, Name = "Teodora", Email = "teodora@example.com", Password = "teodorasiljanoska" };
+            var user = new User { UserId = 16, Name = "Teodora", Email = "teodora@example.com", Password = "teodorasiljanoska" };
 
             //Act
             var result = await userRepository.AddUser(user);
@@ -81,7 +81,7 @@ namespace endavaRestApi.Tests.Repository
             var dbContext = await GetDatabaseContext();
             var userRepository = new UserRepository(dbContext);
             var id = 1;
-            dbContext.Users.Add(new User { Id = id, Name = "John",Email="john@example.com", Password="johnjohn" });
+            dbContext.Users.Add(new User { UserId = id, Name = "John",Email="john@example.com", Password="johnjohn" });
             dbContext.SaveChanges();
 
             //Act
@@ -95,7 +95,7 @@ namespace endavaRestApi.Tests.Repository
             {
                 result.Should().NotBeNull();
                 result.Should().BeOfType(typeof(User));
-                result.Id.Should().Be(id);
+                result.UserId.Should().Be(id);
             }
         }
 
@@ -118,9 +118,10 @@ namespace endavaRestApi.Tests.Repository
             };
 
             var fakeShopRepository = A.Fake<IShopRepository>();
+            var fakeOrderRepository = A.Fake<IOrderRepository>();
                 A.CallTo(() => fakeShopRepository.Get()).Returns(products);
 
-                var shopController = new ShopController(fakeShopRepository);
+                var shopController = new ShopController(fakeShopRepository, fakeOrderRepository);
 
                 // Act
                 var result = await shopController.Filter(productFilter);

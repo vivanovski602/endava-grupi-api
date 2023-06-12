@@ -40,42 +40,18 @@ namespace endavaRestApi.Controllers
         }
 
 
-
-        [HttpPost("user_registration")]
-        public async Task<ActionResult<User>> CreateUser(User user)
+        [HttpGet("product/{category}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategory(string category)
         {
-            var createdUser = await _shopRepository.AddUser(user);
-            return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, createdUser);
-
+            var products = await _shopRepository.GetByCategory(category);
+            return Ok(products);
 
         }
 
-        [HttpGet("get_user_by{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
-        {
 
-            return await _shopRepository.Get(id);
-        }
 
-            var order = await _orderRepository.CreateOrder(userId, productQuantities);
-            var payment = await _orderRepository.CreatePayment(order.OrderId, order.TotalAmount);
 
-            return Ok(new { Order = order, Payment = payment });
-        } */
 
-        /*[HttpPost("orders")]
-        public async Task<IActionResult> CreateOrder(int userId, Dictionary<int, int> productQuantities)
-        {
-            var (order, errorResult) = await _orderRepository.CreateOrder(userId, productQuantities);
-            if (errorResult != null)
-            {
-                return errorResult;
-            }
-
-            var payment = await _orderRepository.CreatePayment(order.OrderId, order.TotalAmount);
-
-            return Ok(new { Order = order, Payment = payment });
-        }*/
 
         [HttpPost("orders")]
         public async Task<IActionResult> CreateOrder(int userId, Dictionary<int, int> productQuantities)
@@ -97,7 +73,7 @@ namespace endavaRestApi.Controllers
 
             }
         }
-    } 
+     
 
 
 
