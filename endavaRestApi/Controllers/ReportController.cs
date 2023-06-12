@@ -16,18 +16,18 @@ namespace endavaRestApi.Controllers
     [ApiController]
     public class ReportController : ControllerBase
     {
-        private readonly ShopContext _context;
-        public ReportController(ShopContext context)
+        private readonly IReportRepository _reportRepository;
+        public ReportController(IReportRepository reportRepository)
         {
-            _context = context;
+            _reportRepository = reportRepository;
         }
         [HttpGet]
-        public IActionResult GetOrderCount()
+        public async Task<IActionResult> GetOrderCount()
         {
             try
             {
-                int orderCount = _context.Orders.Select(o => o.OrderId).Count();
-                return Ok("This is a report that shows the number of orders\nNumber or orders : " + orderCount);
+                int orderCount = await _reportRepository.GetOrderCountAsync();
+                return Ok("This is a report that shows the number of orders\nNumber of orders: " + orderCount);
             }
             catch (Exception ex)
             {
