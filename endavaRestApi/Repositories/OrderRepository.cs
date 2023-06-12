@@ -14,12 +14,16 @@ namespace endavaRestApi.Repositories
         }
         public async Task<bool> IsUserActive(int userId)
         {
+            log.Debug("Checking if user is active...");       //log message of debug level
+
             var user = await _context.Users.FindAsync(userId);
             return user != null && user.IsActive;
         }
 
         public async Task<bool> AreProductsAvailable(Dictionary<int, int> productQuantities)
         {
+            log.Debug("Checking if products are available...");       //log message of debug level
+
             foreach (var kvp in productQuantities)
             {
                 var product = await _context.Products.FindAsync(kvp.Key);
@@ -80,6 +84,7 @@ namespace endavaRestApi.Repositories
             {
                 return (null, new BadRequestObjectResult("One or more products are not available or have insufficient quantity."));
             }
+            log.Debug("Creating order...");       //log message of debug level
 
             var order = new Order
             {   
@@ -90,7 +95,8 @@ namespace endavaRestApi.Repositories
 
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
-
+            
+            log.Debug("Adding Order Details...");       //log message of debug level
 
             foreach (var kvp in productQuantities)
             {
@@ -113,6 +119,8 @@ namespace endavaRestApi.Repositories
 
     public async Task<Payment> CreatePayment(int orderId)
         {
+            log.Debug("Creating Payment...");       //log message of debug level
+
             var payment = new Payment
             {
                 OrderId = orderId,
