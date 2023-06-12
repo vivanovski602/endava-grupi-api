@@ -74,6 +74,16 @@ namespace endavaRestApi.Controllers
             }
         }
      
+            }
+        [HttpPost("import-csv-file")]
+        public async Task<IActionResult> ImportProducts(IFormFile file)
+        {
+            await _shopRepository.ImportCsv(file);
+            return Ok();
+        }
+    }
+    } 
+
 
 
 

@@ -1,4 +1,5 @@
-﻿using endavaRestApi.Data;
+﻿using AutoMapper;
+using endavaRestApi.Data;
 using endavaRestApi.Repositories;
 using log4net;
 using log4net.Appender;
@@ -37,6 +38,13 @@ namespace endavaRestApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(Startup));
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProductCSV, Product>();
+            });
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
             services.AddScoped<IShopRepository, ShopRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IUserRepository, UserRepository>();

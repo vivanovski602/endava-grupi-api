@@ -1,6 +1,8 @@
-﻿using endavaRestApi.Data;
+﻿using CsvHelper;
+using endavaRestApi.Data;
 using log4net;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -107,7 +109,63 @@ namespace endavaRestApi.Repositories
 
             return filteredProducts;
         }
+        public async Task ImportCsv(IFormFile file)
+        {
 
-    }
+            if (file == null || file.Length == 0)
+            {
+                log.Error("File is empty or null.");
+                throw new ArgumentException("File is empty or null.");
+            }
+
+            using var streamReader = new StreamReader(file.OpenReadStream());
+            using var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture);
+            var records = csvReader.GetRecords<ProductCSV>().ToList();
+
+            var avgPrice = await _context.Products.AverageAsync(p => p.Price);
+            var newProducts = new List<Product>();
+            foreach (var record in records)
+            {
+                var product = await _context.Products
+                    .SingleOrDefaultAsync(p => p.ProductGuidId == record.ProductGuidId);
+
+                if (product == null)
+                {
+                    product = new Product();
+                    product.ProductGuidId = Guid.NewGuid();
+                    product.ProductName = record.ProductName;
+                    product.ProductBrand = record.ProductBrand;
+                    product.ProductCategory = record.ProductCategory;
+                    product.ProductDescription = record.ProductDescription;
+                    product.ProductQuantity = record.ProductQuantity;
+                    product.ProductSize = record.ProductSize;
+                    product.Color = record.Color;
+                    product.Weight = record.Weight;
+                    product.Price = record.Price;
+                    product.TotalPrice = record.Price > _context.Products.Average(p => p.Price) ? record.Price - record.ProductQuantity : record.Price + record.ProductQuantity;
+                    newProducts.Add(product);
+                    _context.Products.Add(product);
+                }
+                else
+                {
+                    product.ProductGuidId = record.ProductGuidId;
+                    product.ProductName = record.ProductName;
+                    product.ProductBrand = record.ProductBrand;
+                    product.ProductCategory = record.ProductCategory;
+                    product.ProductDescription = record.ProductDescription;
+                    product.ProductQuantity = record.ProductQuantity;
+                    product.ProductSize = record.ProductSize;
+                    product.Color = record.Color;
+                    product.Weight = record.Weight;
+                    product.Price = record.Price;
+                    product.TotalPrice = record.Price > _context.Products.Average(p => p.Price) ? record.Price - record.ProductQuantity : record.Price + record.ProductQuantity;
+                    _context.Products.Update(product);
+                }
+            }
+            log.Info("Successful");
+            await _context.SaveChangesAsync();
+        }
+
+}
 }
 
