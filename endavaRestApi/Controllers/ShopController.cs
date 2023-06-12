@@ -67,14 +67,9 @@ namespace endavaRestApi.Controllers
             return Ok(new { Order = order, Payment = payment });
         }
 
-
-
-
-
-            }
-        }
+        
      
-            }
+            
         [HttpPost("import-csv-file")]
         public async Task<IActionResult> ImportProducts(IFormFile file)
         {

@@ -121,6 +121,7 @@ namespace endavaRestApi.Tests.Repository
 
             var fakeShopRepository = A.Fake<IShopRepository>();
             var fakeOrderRepository = A.Fake<IOrderRepository>();
+            
                 A.CallTo(() => fakeShopRepository.Get()).Returns(products);
 
                 var shopController = new ShopController(fakeShopRepository, fakeOrderRepository);
@@ -138,7 +139,8 @@ namespace endavaRestApi.Tests.Repository
             //Arrange
             var file = CreateFakeCsvFile();
             var fakeShopRepository = A.Fake<IShopRepository>();
-            var controller = new ShopController(fakeShopRepository);
+            var fakeOrderRepository = A.Fake<IOrderRepository>();
+            var controller = new ShopController(fakeShopRepository,fakeOrderRepository);
 
             //Act
             var result = await controller.ImportProducts(file);
