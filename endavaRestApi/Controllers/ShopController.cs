@@ -26,15 +26,13 @@ namespace endavaRestApi.Controllers
             _orderRepository = orderRepository;
         }
 
-        [HttpGet("get_all_products")]
+        [HttpGet("products/Get-All")]
         public async Task<IEnumerable<Product>> GetProducts()
         {
-           
-                return await _shopRepository.Get();
-            
-         }
+            return await _shopRepository.Get();
+        }
 
-        [HttpPost("filter")]
+        [HttpPost("products/filter")]
         public async Task<ActionResult<Product>> Filter([FromBody] ProductFilter filter)
         {
             var results = await _shopRepository.Filter(filter);
@@ -47,7 +45,7 @@ namespace endavaRestApi.Controllers
         public async Task<ActionResult<User>> CreateUser(User user)
         {
             var createdUser = await _shopRepository.AddUser(user);
-            return CreatedAtAction(nameof(GetUser), new { id = createdUser.UserId }, createdUser);
+            return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, createdUser);
 
 
         }
@@ -55,23 +53,9 @@ namespace endavaRestApi.Controllers
         [HttpGet("get_user_by{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-           
+
             return await _shopRepository.Get(id);
         }
-
-        /* // Action method to create an order
-        [HttpPost("orders")]
-        public async Task<IActionResult> CreateOrder(int userId, Dictionary<int, int> productQuantities)
-        {
-            if (!await _orderRepository.IsUserActive(userId))           //vo Repository
-            {
-                return BadRequest("User is inactive or does not exist.");
-            }
-
-            if (!await _orderRepository.AreProductsAvailable(productQuantities))
-            {
-                return BadRequest("One or more products are not available or have insufficient quantity.");
-            }
 
             var order = await _orderRepository.CreateOrder(userId, productQuantities);
             var payment = await _orderRepository.CreatePayment(order.OrderId, order.TotalAmount);
@@ -111,7 +95,11 @@ namespace endavaRestApi.Controllers
 
 
 
-    }
+            }
+        }
+    } 
 
 
-}
+
+
+

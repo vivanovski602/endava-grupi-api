@@ -8,10 +8,13 @@ project.lock.json
 
 .vscode
 
+.vs/
 *.suo
+*.v2
 *.user
 *.userosscache
 *.sln.docstates
+
 
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -26,4 +29,3 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
-.vs/
