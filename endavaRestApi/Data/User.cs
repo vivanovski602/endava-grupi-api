@@ -4,7 +4,7 @@ namespace endavaRestApi.Data
 {
     public class User
     {
-        public int Id { get; set; }
+        public int UserId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
@@ -13,6 +13,10 @@ namespace endavaRestApi.Data
         [Required]
         [MinLength(8)]
         public string Password { get; set; }
+        public bool IsActive { get; internal set; }
+        
+        //public ICollection<Order> Orders { get; set; } = null!;
+
     }
 
 }

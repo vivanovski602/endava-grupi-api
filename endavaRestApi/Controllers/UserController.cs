@@ -20,7 +20,7 @@ namespace endavaRestApi.Controllers
         public async Task<ActionResult<User>> CreateUser(User user)
         {
             var createdUser = await _userRepository.AddUser(user);
-            return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, createdUser);
+            return CreatedAtAction(nameof(GetUser), new { id = createdUser.UserId }, createdUser);
 
 
         }

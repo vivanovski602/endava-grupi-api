@@ -12,20 +12,20 @@ namespace endavaRestApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Customers",
+                name: "Users",
                 columns: table => new
                 {
-                    CustomerId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerFName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CustomerLName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true, defaultValue:1)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customers", x => x.CustomerId);
-                });
+                    table.PrimaryKey("PK_Users", x => x.UserId);
+                }); 
 
             migrationBuilder.CreateTable(
                 name: "Products",
@@ -34,10 +34,15 @@ namespace endavaRestApi.Migrations
                     ProductId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductPrice = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
-                    ProductDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductCategory = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductBrand = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
                     ProductQuantity = table.Column<int>(type: "int", nullable: false),
-                    ProductCategory = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ProductDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Weight = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
+                    ProductSize = table.Column<string>(type:"nvarchar(max)", nullable:false)
+                    
+                   
                 },
                 constraints: table =>
                 {
@@ -52,16 +57,16 @@ namespace endavaRestApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OrderPlaced = table.Column<DateTime>(type: "datetime2", nullable: false),
                     OrderFulfilled = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CustomerId = table.Column<int>(type: "int", nullable: false)
+                   UserId = table.Column<int>(type: "int", nullable: false) 
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.OrderId);
                     table.ForeignKey(
-                        name: "FK_Orders_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "CustomerId",
+                        name: "FK_Orders_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -103,9 +108,9 @@ namespace endavaRestApi.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_CustomerId",
+                name: "IX_Orders_UserId",
                 table: "Orders",
-                column: "CustomerId");
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -121,7 +126,7 @@ namespace endavaRestApi.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "Users");
         }
     }
 }

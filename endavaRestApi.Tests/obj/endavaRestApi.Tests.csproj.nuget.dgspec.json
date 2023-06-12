@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\froze\\source\\repos\\endava-grupi-api\\endavaRestApi.Tests\\endavaRestApi.Tests.csproj": {}
+    "C:\\Users\\Teodora\\endava-grupi-api\\endavaRestApi.Tests\\endavaRestApi.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\froze\\source\\repos\\endava-grupi-api\\endavaRestApi.Tests\\endavaRestApi.Tests.csproj": {
+    "C:\\Users\\Teodora\\endava-grupi-api\\endavaRestApi.Tests\\endavaRestApi.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\froze\\source\\repos\\endava-grupi-api\\endavaRestApi.Tests\\endavaRestApi.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\Teodora\\endava-grupi-api\\endavaRestApi.Tests\\endavaRestApi.Tests.csproj",
         "projectName": "endavaRestApi.Tests",
-        "projectPath": "C:\\Users\\froze\\source\\repos\\endava-grupi-api\\endavaRestApi.Tests\\endavaRestApi.Tests.csproj",
-        "packagesPath": "C:\\Users\\froze\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\froze\\source\\repos\\endava-grupi-api\\endavaRestApi.Tests\\obj\\",
+        "projectPath": "C:\\Users\\Teodora\\endava-grupi-api\\endavaRestApi.Tests\\endavaRestApi.Tests.csproj",
+        "packagesPath": "C:\\Users\\Teodora\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Teodora\\endava-grupi-api\\endavaRestApi.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\froze\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Teodora\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\froze\\source\\repos\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj": {
-                "projectPath": "C:\\Users\\froze\\source\\repos\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj"
+              "C:\\Users\\Teodora\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj": {
+                "projectPath": "C:\\Users\\Teodora\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj"
               }
             }
           }
@@ -95,8 +95,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -105,21 +104,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\froze\\source\\repos\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj": {
+    "C:\\Users\\Teodora\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\froze\\source\\repos\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj",
+        "projectUniqueName": "C:\\Users\\Teodora\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj",
         "projectName": "endavaRestApi",
-        "projectPath": "C:\\Users\\froze\\source\\repos\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj",
-        "packagesPath": "C:\\Users\\froze\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\froze\\source\\repos\\endava-grupi-api\\endavaRestApi\\obj\\",
+        "projectPath": "C:\\Users\\Teodora\\endava-grupi-api\\endavaRestApi\\endavaRestApi.csproj",
+        "packagesPath": "C:\\Users\\Teodora\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Teodora\\endava-grupi-api\\endavaRestApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\froze\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Teodora\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -145,6 +144,18 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[30.0.1, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.4, )"
@@ -169,6 +180,10 @@
               "target": "Package",
               "version": "[6.5.0, )"
             },
+            "System.Linq.Async": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
             "log4net": {
               "target": "Package",
               "version": "[2.0.15, )"
@@ -180,8 +195,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -193,7 +207,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

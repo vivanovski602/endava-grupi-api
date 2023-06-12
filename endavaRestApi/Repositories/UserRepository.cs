@@ -45,7 +45,7 @@ namespace endavaRestApi.Repositories
 
         public async Task<User> UpdateUser(User user)
         {
-            log.Info($"Updating user with id {user.Id}"); //log message of info level
+            log.Info($"Updating user with id {user.UserId}"); //log message of info level
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
 

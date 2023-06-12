@@ -46,6 +46,9 @@ namespace endavaRestApi
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
             services.AddScoped<IShopRepository, ShopRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
             services.AddControllers();
 
 
