@@ -163,6 +163,22 @@ namespace endavaRestApi.Tests.Repository
             A.CallTo(() => file.Length).Returns(stream.Length);
             return file;
         }
+        [Fact]
+        public async Task ReportController_GetOrderCount_ReturnsOkWithOrderCount()
+        {
+            // Arrange
+            var reportRepository = A.Fake<IReportRepository>();
+            A.CallTo(() => reportRepository.GetOrderCountAsync()).Returns(Task.FromResult(3));
+            var reportController = new ReportController(reportRepository);
+
+            // Act
+            var result = await reportController.GetOrderCount();
+            // Assert
+            var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
+            okResult.Value.Should().BeOfType<string>();
+            var orderCountMessage = (string)okResult.Value;
+            orderCountMessage.Should().Contain("Number of orders: 3");
+        }
     }
     }
 
