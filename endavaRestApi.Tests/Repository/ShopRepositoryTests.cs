@@ -203,6 +203,28 @@ namespace endavaRestApi.Tests.Repository
             okResult.StatusCode.Should().Be(StatusCodes.Status200OK);
             okResult.Value.Should().Be(fakeUser);
         }
+        [Fact]
+        public async Task GetMatchingPaymentDetailsAsync_WithValidParameters_ReturnsOkResult()
+        {
+            // Arrange
+            int userId = 1;
+            string productName = "Phone";
+            var expectedResult = new { UserName = "Stiles", ProductName = productName, TotalPrice = 10.99 };
+
+            var orderRepository = A.Fake<IOrderRepository>();
+            var shopRepository = A.Fake<IShopRepository>();
+            A.CallTo(() => orderRepository.GetMatchingPaymentDetailsAsync(userId, productName)).Returns(expectedResult);
+
+            var controller = new ShopController(shopRepository, orderRepository);
+
+            // Act
+            var actionResult = await controller.GetMatchingPaymentDetailsAsync(userId, productName);
+
+            // Assert
+            actionResult.Should().BeOfType<OkObjectResult>();
+            var okResult = actionResult as OkObjectResult;
+            okResult.Value.Should().Be(expectedResult);
+        }
     }
 }
 
