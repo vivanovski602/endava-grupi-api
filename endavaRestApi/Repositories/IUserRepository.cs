@@ -9,5 +9,6 @@ namespace endavaRestApi.Repositories
         Task<User> GetUserByEmail(string email);
         Task<User> GetUserByName(string name);
         Task<User> UpdateUser(User user);
+        Task<User> ValidateLogin(string email, string password);
     }
 }

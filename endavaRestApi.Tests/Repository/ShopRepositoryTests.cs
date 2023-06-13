@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace endavaRestApi.Tests.Repository
-{   
+{
     //All these are Web API Entity Framework xUnit Tests (maybe ProductFilter is Web API Controller xUnit Test
     public class ShopRepositoryTests
     {
@@ -47,7 +47,7 @@ namespace endavaRestApi.Tests.Repository
             //Arrange
             var dbContext = await GetDatabaseContext();
             var shopRepository = new ShopRepository(dbContext);
-            
+
 
             // Act
             var result = await shopRepository.Get();
@@ -55,7 +55,7 @@ namespace endavaRestApi.Tests.Repository
             // Assert
             result.Should().NotBeNull();
             result.Should().BeOfType<List<Product>>();
-            
+
         }
 
         //xUnit Test for AddUser(user)  --- UserRegistrationAPI
@@ -83,16 +83,16 @@ namespace endavaRestApi.Tests.Repository
             var dbContext = await GetDatabaseContext();
             var userRepository = new UserRepository(dbContext);
             var id = 1;
-            dbContext.Users.Add(new User { UserId = id, Name = "John",Email="john@example.com", Password="johnjohn" });
+            dbContext.Users.Add(new User { UserId = id, Name = "John", Email = "john@example.com", Password = "johnjohn" });
             dbContext.SaveChanges();
 
             //Act
             var result = await userRepository.Get(id);
 
             //Assert
-           if (result == null) { result.Should().BeNull(); }   //in case there isn't a user with that id - KOREKCIJA
+            if (result == null) { result.Should().BeNull(); }   //in case there isn't a user with that id - KOREKCIJA
 
-           
+
             else
             {
                 result.Should().NotBeNull();
@@ -105,11 +105,17 @@ namespace endavaRestApi.Tests.Repository
         [Fact]
         public async Task ShopController_Filter_ReturnsOKWithFilteredProducts()
         {
-                // Arrange
-                var productFilter = new ProductFilter
-                { 
-                ProductCategory = "Food", ProductBrand = "McDonald's", PriceMin = 100, PriceMax = 250, ProductSize = "Large", WeightMin = 150, WeightMax = 450 
-                };
+            // Arrange
+            var productFilter = new ProductFilter
+            {
+                ProductCategory = "Food",
+                ProductBrand = "McDonald's",
+                PriceMin = 100,
+                PriceMax = 250,
+                ProductSize = "Large",
+                WeightMin = 150,
+                WeightMax = 450
+            };
 
 
             var products = new List<Product>
@@ -121,18 +127,18 @@ namespace endavaRestApi.Tests.Repository
 
             var fakeShopRepository = A.Fake<IShopRepository>();
             var fakeOrderRepository = A.Fake<IOrderRepository>();
-            
-                A.CallTo(() => fakeShopRepository.Get()).Returns(products);
 
-                var shopController = new ShopController(fakeShopRepository, fakeOrderRepository);
+            A.CallTo(() => fakeShopRepository.Get()).Returns(products);
 
-                // Act
-                var result = await shopController.Filter(productFilter);
+            var shopController = new ShopController(fakeShopRepository, fakeOrderRepository);
 
-                // Assert
-                result.Should().BeOfType<ActionResult<Product>>();
-                
-            }
+            // Act
+            var result = await shopController.Filter(productFilter);
+
+            // Assert
+            result.Should().BeOfType<ActionResult<Product>>();
+
+        }
         [Fact]
         public async Task ImportProducts_WithValidCsvFile_ReturnsOkResult()
         {
@@ -140,7 +146,7 @@ namespace endavaRestApi.Tests.Repository
             var file = CreateFakeCsvFile();
             var fakeShopRepository = A.Fake<IShopRepository>();
             var fakeOrderRepository = A.Fake<IOrderRepository>();
-            var controller = new ShopController(fakeShopRepository,fakeOrderRepository);
+            var controller = new ShopController(fakeShopRepository, fakeOrderRepository);
 
             //Act
             var result = await controller.ImportProducts(file);
@@ -179,7 +185,25 @@ namespace endavaRestApi.Tests.Repository
             var orderCountMessage = (string)okResult.Value;
             orderCountMessage.Should().Contain("Number of orders: 3");
         }
+        [Fact]
+        public async Task UserController_ValidateLogin_ReturnsOkResult()
+        {
+            // Arrange
+            string email = "stilinski@gmail.com";
+            string password = "lydia";
+            var userRepository = A.Fake<IUserRepository>();
+            var controller = new UserController(userRepository);
+            var fakeUser = new User { Name = "Stiles", Email = email, Password = password };
+            A.CallTo(() => userRepository.ValidateLogin(email, password)).Returns(fakeUser);
+            // Act
+            var result = await controller.Login(email, password);
+            // Assert
+            result.Should().BeOfType<OkObjectResult>();
+            var okResult = result.As<OkObjectResult>();
+            okResult.StatusCode.Should().Be(StatusCodes.Status200OK);
+            okResult.Value.Should().Be(fakeUser);
+        }
     }
-    }
+}
 
 

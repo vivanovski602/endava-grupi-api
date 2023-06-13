@@ -52,5 +52,12 @@ namespace endavaRestApi.Repositories
             log.Info($"User updated: {user.Name}"); //log message of info level
             return user;
         }
+        public async Task<User> ValidateLogin(string email, string password)
+        {
+            log.Info($"Validating login for email: {email}");
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+            return user;
+        }
+
     }
 }
