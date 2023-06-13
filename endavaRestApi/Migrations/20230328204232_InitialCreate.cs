@@ -40,7 +40,11 @@ namespace endavaRestApi.Migrations
                     ProductQuantity = table.Column<int>(type: "int", nullable: false),
                     ProductDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Weight = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
-                    ProductSize = table.Column<string>(type:"nvarchar(max)", nullable:false)
+                    ProductSize = table.Column<string>(type:"nvarchar(max)", nullable:false),
+                    Color =table.Column<string>(type:"nvarchar(max)", nullable:false, defaultValue:""),
+                    TotalPrice = table.Column<decimal>(type:"decimal(18,2)", nullable:false, defaultValue:"0m"),
+                    ProductGuidId=table.Column<Guid>(type:"uniqueidentifier", nullable:false, defaultValue: new Guid("00000000-0000-0000-0000-000000000000"))
+
                     
                    
                 },
