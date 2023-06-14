@@ -11,5 +11,6 @@ namespace endavaRestApi.Repositories
         Task<Payment> CreatePayment(int orderId);
 
         Task<(Order, IActionResult)> CreateOrder(int userId, Dictionary<int, int> productQuantities);
+        Task<object> GetMatchingPaymentDetailsAsync(int userId, string productName);
     }
 }

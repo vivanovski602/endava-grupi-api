@@ -76,6 +76,12 @@ namespace endavaRestApi.Controllers
             await _shopRepository.ImportCsv(file);
             return Ok();
         }
+        [HttpGet("payment-details")]
+        public async Task<IActionResult> GetMatchingPaymentDetailsAsync(int userId, string productName)
+        {
+            var result = await _orderRepository.GetMatchingPaymentDetailsAsync(userId, productName);
+            return Ok(result);
+        }
     }
     } 
 

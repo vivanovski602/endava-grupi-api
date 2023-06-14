@@ -1,6 +1,7 @@
 ﻿using endavaRestApi.Data;
 using log4net;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace endavaRestApi.Repositories
 {
@@ -133,6 +134,55 @@ namespace endavaRestApi.Repositories
             await _context.SaveChangesAsync();
 
             return payment;
+        }
+        public async Task<object> GetMatchingPaymentDetailsAsync(int userId, string productName)
+        {
+            try
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+                if (user == null)
+                {
+                    log.Error($"User with ID '{userId}' not found.");
+                    return "User not found.";
+                }
+
+                var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductName == productName);
+                if (product == null)
+                {
+                    log.Error($"Product with name '{productName}' not found.");
+                    return "Product not found.";
+                }
+
+                var order = await _context.Orders.FirstOrDefaultAsync(o => o.UserId == userId);
+                if (order == null)
+                {
+                    log.Error($"Order for user ID '{userId}' not found.");
+                    return "Order not found.";
+                }
+
+                var orderDetail = await _context.OrderDetails.FirstOrDefaultAsync(od => od.OrderId == order.OrderId && od.ProductId == product.ProductId);
+                if (orderDetail == null)
+                {
+                    log.Error($"Order detail for user ID '{userId}' and product '{productName}' not found.");
+                    return "Order detail not found.";
+                }
+
+                var totalPrice = orderDetail.Quantity * product.TotalPrice;
+
+                var result = new
+                {
+                    UserName = user.Name,
+                    ProductName = productName,
+                    TotalPrice = totalPrice
+                };
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("An error occurred while retrieving the payment details.", ex);
+                return "An error occurred while retrieving the payment details.";
+            }
         }
 
 

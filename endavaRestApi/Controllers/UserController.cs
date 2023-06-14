@@ -62,5 +62,16 @@ namespace endavaRestApi.Controllers
             await _userRepository.UpdateUser(user);
             return Ok("Password reset successfully!");
         }
+        [HttpGet("user/Login")]
+        public async Task<ActionResult<User>> Login(string email, string password)
+        {
+            var existingUser = await _userRepository.ValidateLogin(email, password);
+            if (existingUser == null)
+            {
+                return NotFound("Invalid email or password");
+            }
+            return Ok(existingUser);
+        }
+
     }
 }
