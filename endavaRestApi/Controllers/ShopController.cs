@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using endavaRestApi.Data;
 using endavaRestApi.Repositories;
+using log4net;
+using log4net.Config;
 
 namespace endavaRestApi.Controllers
 {
@@ -13,55 +15,78 @@ namespace endavaRestApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class ShopController : ControllerBase
+
     {
         private readonly IShopRepository _shopRepository;
-        public ShopController(IShopRepository shopRepository)
+        private readonly IOrderRepository _orderRepository;
+        public ShopController(IShopRepository shopRepository, IOrderRepository orderRepository)
         {
             _shopRepository = shopRepository;
+            XmlConfigurator.Configure(new FileInfo("log4net.config"));
+            _orderRepository = orderRepository;
         }
 
-        [HttpGet]
+        [HttpGet("products/Get-All")]
         public async Task<IEnumerable<Product>> GetProducts()
         {
             return await _shopRepository.Get();
         }
 
-        [HttpPost("filter")]
-   
+        [HttpPost("products/filter")]
         public async Task<ActionResult<Product>> Filter([FromBody] ProductFilter filter)
         {
-            var products = await _shopRepository.Get();
-            var results = products.Where(p =>
-                    (filter.ProductCategory == null || p.ProductCategory == filter.ProductCategory) &&
-                    (filter.ProductBrand == null || p.ProductBrand == filter.ProductBrand) &&
-                    (filter.PriceMin == null || p.Price >= filter.PriceMin) &&
-                    (filter.PriceMax == null || p.Price <= filter.PriceMax) &&
-                    (filter.ProductSize == null || p.ProductSize == filter.ProductSize) &&
-                    (filter.WeightMin == null || p.Weight >= filter.WeightMin) &&
-                    (filter.WeightMax == null || p.Weight <= filter.WeightMax)
-                );
-
+            var results = await _shopRepository.Filter(filter);
             return Ok(results);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<User>> CreateUser(User user)
+
+        [HttpGet("product/{category}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategory(string category)
         {
-            var createdUser = await _shopRepository.AddUser(user);
-
-            return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, createdUser);
-
+            var products = await _shopRepository.GetByCategory(category);
+            return Ok(products);
 
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+
+
+
+
+
+        [HttpPost("orders")]
+        public async Task<IActionResult> CreateOrder(int userId, Dictionary<int, int> productQuantities)
         {
-            return await _shopRepository.Get(id);
+            var (order, errorResult) = await _orderRepository.CreateOrder(userId, productQuantities);
+            if (errorResult != null)
+            {
+                return errorResult;
+            }
+
+            var payment = await _orderRepository.CreatePayment(order.OrderId);
+
+            return Ok(new { Order = order, Payment = payment });
         }
 
-
+        
+     
+            
+        [HttpPost("import-csv-file")]
+        public async Task<IActionResult> ImportProducts(IFormFile file)
+        {
+            await _shopRepository.ImportCsv(file);
+            return Ok();
+        }
+        [HttpGet("payment-details")]
+        public async Task<IActionResult> GetMatchingPaymentDetailsAsync(int userId, string productName)
+        {
+            var result = await _orderRepository.GetMatchingPaymentDetailsAsync(userId, productName);
+            return Ok(result);
+        }
     }
+    } 
 
 
-}
+
+
+
+

@@ -21,6 +21,12 @@ namespace endavaRestApi.Data
         public decimal Weight { get; set; }
         [Required]
         public int ProductQuantity { get; set; }
-       
+
+        public string Color { get; set; }
+
+        public decimal TotalPrice { get; set; }
+        [Required]
+        public Guid ProductGuidId { get; set; }
+
     }
 }
